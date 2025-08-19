@@ -27,7 +27,7 @@ nodemon – Auto-restart server on changes
 
 ⚡ Getting Started
 1️⃣ Clone the repo
-git clone https://github.com/your-username/starter_backend.git
+git clone [https://github.com/your-username/starter_backend.git](https://github.com/asifalam515/backend-starter)
 cd starter_backend
 
 2️⃣ Install dependencies
