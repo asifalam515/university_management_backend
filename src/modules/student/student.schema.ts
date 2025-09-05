@@ -1,17 +1,18 @@
 // student.model.ts
 import { Schema, model } from "mongoose";
 import { TStudent } from "./student.interface";
+import { string } from "zod";
 
 const studentSchema = new Schema<TStudent>(
   {
     id: { type: String, required: true, unique: true },
     name: {
       firstName: { type: String, required: true },
-      middleName: { type: String },
+      middleName: string,
       lastName: { type: String, required: true },
     },
     gender: { type: String, enum: ["Male", "Female", "Other"], required: true },
-    dateOfBirth: { type: Date },
+    dateOfBirth: { type: String },
     email: { type: String, required: true, unique: true },
     contactNo: { type: String, required: true },
     emergencyContactNo: { type: String, required: true },

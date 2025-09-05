@@ -9,7 +9,7 @@ export const studentValidationSchema = z.object({
     lastName: z.string().min(1, "Last name is required"),
   }),
   gender: z.enum(["Male", "Female", "Other"]),
-  dateOfBirth: z.string().datetime().optional(), // ISO string; can convert to Date later
+  dateOfBirth: z.string(),
   email: z.string().email("Invalid email address"),
   contactNo: z.string().min(6, "Contact number is required"),
   emergencyContactNo: z.string().min(6, "Emergency contact number is required"),
