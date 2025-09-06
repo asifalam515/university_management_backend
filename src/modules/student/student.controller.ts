@@ -15,7 +15,12 @@ const createStudent = async (req: Request, res: Response) => {
       });
     }
     // const result = await StudentModel.create(students);
-
+    const existingStudent = await StudentModel.isStudentExists(student.id);
+    if (existingStudent) {
+      console.log("Student already exists:", existingStudent);
+    } else {
+      console.log("No student found with this ID");
+    }
     const result = await studentService.createStudentToDB(
       validatedStudentData.data
     );

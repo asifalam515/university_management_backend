@@ -1,3 +1,10 @@
+import { Model } from "mongoose";
+
+import { StudentModel } from "./student.schema";
+//
+export interface studentModelType extends Model<TStudent> {
+  isStudentExists(id: string): Promise<TStudent | null>;
+}
 // student.interface.ts
 export type TStudent = {
   id: string; // unique student id, e.g. "STU2025001"
@@ -31,3 +38,5 @@ export type TStudent = {
   profileImg?: string; // URL or path
   isActive: "active" | "inactive";
 };
+
+export type TStudentModel = Model<TStudent>;

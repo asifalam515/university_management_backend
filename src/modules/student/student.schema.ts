@@ -1,9 +1,10 @@
 // student.model.ts
 import { Schema, model } from "mongoose";
-import { TStudent } from "./student.interface";
+import { studentModelType, TStudent, TStudentModel } from "./student.interface";
 import { string } from "zod";
+import { id } from "zod/v4/locales/index.cjs";
 
-const studentSchema = new Schema<TStudent>(
+const studentSchema = new Schema<TStudent, studentModelType>(
   {
     id: { type: String, required: true, unique: true },
     name: {
@@ -41,5 +42,10 @@ const studentSchema = new Schema<TStudent>(
   },
   { timestamps: true }
 );
-
-export const StudentModel = model<TStudent>("Student", studentSchema);
+studentSchema.statics.isStudentExists = async function (id: string) {
+  return await this.findOne({ id });
+};
+export const StudentModel = model<TStudent, studentModelType>(
+  "Student",
+  studentSchema
+);
