@@ -7,7 +7,7 @@ export type TStudent = {
     lastName: string;
   };
   gender: "Male" | "Female" | "Other";
-  dateOfBirth?: Date;
+  dateOfBirth?: String;
   email: string;
   contactNo: string;
   emergencyContactNo: string;

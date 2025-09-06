@@ -5,4 +5,8 @@ const createStudentToDB = async (student: TStudent) => {
   const result = await StudentModel.create(student);
   return result;
 };
-export const studentService = { createStudentToDB };
+const getAllStudentsFromDB = async () => {
+  const result = await StudentModel.find();
+  return result;
+};
+export const studentService = { createStudentToDB, getAllStudentsFromDB };

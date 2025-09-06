@@ -3,3 +3,4 @@ import { StudentModel } from "./student.schema";
 import { studentController } from "./student.controller";
 export const router = express.Router();
 router.post("/create-student", studentController.createStudent);
+router.get("/", studentController.getAllStudents);
