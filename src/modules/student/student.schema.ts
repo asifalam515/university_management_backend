@@ -2,7 +2,6 @@
 import { Schema, model } from "mongoose";
 import { studentModelType, TStudent, TStudentModel } from "./student.interface";
 import { string } from "zod";
-import { id } from "zod/v4/locales/index.cjs";
 
 const studentSchema = new Schema<TStudent, studentModelType>(
   {

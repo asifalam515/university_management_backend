@@ -16,19 +16,20 @@ const createStudent = async (req: Request, res: Response) => {
     }
     // const result = await StudentModel.create(students);
     const existingStudent = await StudentModel.isStudentExists(student.id);
-    if (existingStudent) {
-      console.log("Student already exists:", existingStudent);
-    } else {
-      console.log("No student found with this ID");
-    }
-    const result = await studentService.createStudentToDB(
-      validatedStudentData.data
-    );
+    if (!existingStudent) {
+      const result = await studentService.createStudentToDB(
+        validatedStudentData.data
+      );
 
-    res.status(200).json({
-      message: "single student created",
-      data: result,
-    });
+      res.status(200).json({
+        message: "single student created",
+        data: result,
+      });
+    } else {
+      res.status(500).json({
+        message: "Student already exist in DB",
+      });
+    }
   } catch (error: any) {
     res.status(500).json({
       message: "Failed to create student",
