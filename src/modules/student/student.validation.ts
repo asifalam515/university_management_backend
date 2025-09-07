@@ -3,6 +3,7 @@ import { z } from "zod";
 
 export const studentValidationSchema = z.object({
   id: z.string().min(1, "Student ID is required"),
+  password: z.string(),
   name: z.object({
     firstName: z.string().min(1, "First name is required"),
     middleName: z.string().optional(),

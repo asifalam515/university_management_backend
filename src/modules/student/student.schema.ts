@@ -2,10 +2,13 @@
 import { Schema, model } from "mongoose";
 import { studentModelType, TStudent, TStudentModel } from "./student.interface";
 import { string } from "zod";
+import bcrypt from "bcrypt";
+import config from "../../config";
 
 const studentSchema = new Schema<TStudent, studentModelType>(
   {
     id: { type: String, required: true, unique: true },
+    password: { type: String, required: true, unique: true },
     name: {
       firstName: { type: String, required: true },
       middleName: string,
@@ -41,6 +44,21 @@ const studentSchema = new Schema<TStudent, studentModelType>(
   },
   { timestamps: true }
 );
+// pre save middleware
+//hasing password and save into DB
+studentSchema.pre("save", async function (next) {
+  const user = this;
+  user.password = await bcrypt.hash(
+    user.password,
+    Number(config.bcyrpt_salt_rounds)
+  );
+  next();
+});
+
+//post save middleware
+studentSchema.post("save", function () {
+  console.log(this, "post hook ,we will save our data after the operation");
+});
 studentSchema.statics.isStudentExists = async function (id: string) {
   return await this.findOne({ id });
 };

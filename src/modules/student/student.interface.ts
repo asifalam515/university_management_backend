@@ -8,6 +8,7 @@ export interface studentModelType extends Model<TStudent> {
 // student.interface.ts
 export type TStudent = {
   id: string; // unique student id, e.g. "STU2025001"
+  password: string;
   name: {
     firstName: string;
     middleName?: string;
