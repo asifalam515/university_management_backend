@@ -65,9 +65,7 @@ studentSchema.post("save", function (doc, next) {
 });
 
 // impelement query middleware
-studentSchema.pre("find", function (next) {
-  console.log(this);
-});
+// studentSchema.pre("find", function (next) {});
 studentSchema.statics.isStudentExists = async function (id: string) {
   return await this.findOne({ id });
 };
