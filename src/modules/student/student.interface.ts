@@ -1,4 +1,4 @@
-import { Model } from "mongoose";
+import { BooleanExpressionOperator, Model } from "mongoose";
 
 import { StudentModel } from "./student.schema";
 //
@@ -38,6 +38,7 @@ export type TStudent = {
   };
   profileImg?: string; // URL or path
   isActive: "active" | "inactive";
+  isDeleted: boolean;
 };
 
 export type TStudentModel = Model<TStudent>;

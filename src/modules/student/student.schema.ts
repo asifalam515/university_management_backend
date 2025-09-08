@@ -41,6 +41,7 @@ const studentSchema = new Schema<TStudent, studentModelType>(
     },
     profileImg: { type: String },
     isActive: { type: String, enum: ["active", "inactive"], default: "active" },
+    isDeleted: { type: Boolean, default: false },
   },
   { timestamps: true }
 );
@@ -56,8 +57,16 @@ studentSchema.pre("save", async function (next) {
 });
 
 //post save middleware
-studentSchema.post("save", function () {
-  console.log(this, "post hook ,we will save our data after the operation");
+//prevent showing password from DB
+studentSchema.post("save", function (doc, next) {
+  //after the saving .we will get updated doc. now we are going to make it empty string
+  doc.password = "";
+  next();
+});
+
+// impelement query middleware
+studentSchema.pre("find", function (next) {
+  console.log(this);
 });
 studentSchema.statics.isStudentExists = async function (id: string) {
   return await this.findOne({ id });
