@@ -65,7 +65,10 @@ studentSchema.post("save", function (doc, next) {
 });
 
 // impelement query middleware
-// studentSchema.pre("find", function (next) {});
+//for deleting in different way
+studentSchema.pre("find", function (next) {
+  console.log(this);
+});
 studentSchema.statics.isStudentExists = async function (id: string) {
   return await this.findOne({ id });
 };
