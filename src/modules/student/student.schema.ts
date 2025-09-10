@@ -70,6 +70,10 @@ studentSchema.pre("find", function (next) {
   this.find({ isDeleted: { $ne: true } });
   next();
 });
+studentSchema.pre("aggregate", function (next) {
+  console.log(this.pipeline());
+  next();
+});
 studentSchema.statics.isStudentExists = async function (id: string) {
   return await this.findOne({ id });
 };
