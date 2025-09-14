@@ -43,7 +43,12 @@ const studentSchema = new Schema<TStudent, studentModelType>(
     isActive: { type: String, enum: ["active", "inactive"], default: "active" },
     isDeleted: { type: Boolean, default: false },
   },
-  { timestamps: true }
+  {
+    toJSON: {
+      virtuals: true,
+    },
+  }
+  // { timestamps: true }
 );
 // pre save middleware
 //hasing password and save into DB
@@ -77,6 +82,10 @@ studentSchema.pre("aggregate", function (next) {
 studentSchema.statics.isStudentExists = async function (id: string) {
   return await this.findOne({ id });
 };
+// mongoose virtual
+studentSchema.virtual("fullName").get(function () {
+  return this.name.firstName + this.name.middleName + this.name.lastName;
+});
 export const StudentModel = model<TStudent, studentModelType>(
   "Student",
   studentSchema
