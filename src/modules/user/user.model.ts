@@ -1,28 +1,38 @@
 import { Schema, model, connect } from "mongoose";
 import { TUser } from "./user.interface";
-const userSchema = new Schema<TUser>({
-  id: {
-    type: String,
-    required: true,
+const userSchema = new Schema<TUser>(
+  {
+    id: {
+      type: String,
+      required: true,
+    },
+    password: {
+      type: String,
+      required: true,
+    },
+    role: {
+      type: String,
+      enum: ["admin", "student", "faculty"],
+      required: true,
+    },
+    status: {
+      type: String,
+      enum: ["in-progress", "blocked"],
+      required: true,
+      default: "in-progress",
+    },
+    needsPasswordChange: {
+      type: Boolean,
+      default: true,
+    },
+
+    isDeleted: {
+      type: Boolean,
+      default: false,
+    },
   },
-  password: {
-    type: String,
-    required: true,
-  },
-  role: {
-    type: String,
-    enum: ["admin", "user", "faculty"],
-  },
-  status: {
-    type: String,
-    enum: ["in-progress", "blocked"],
-  },
-  needsPasswordChange: {
-    type: Boolean,
-    required: true,
-  },
-  createdAt: Date,
-  updatedAt: Date,
-  isDeleted: Boolean,
-});
-export const User = model("User", userSchema);
+  {
+    timestamps: true,
+  }
+);
+export const User = model<TUser>("User", userSchema);
