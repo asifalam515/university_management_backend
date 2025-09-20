@@ -1,27 +1,27 @@
 import config from "../../config";
 import { TStudent } from "../student/student.interface";
-import { newUser } from "./user.interface";
+import { TUser } from "./user.interface";
 import { User } from "./user.model";
 
 const createStudentToDB = async (password: string, student: TStudent) => {
   // if password is not given use default password
-  //create user object
-  const user: newUser = {};
+  //create af user object
+  const userData: Partial<TUser> = {};
   if (!password) {
-    user.password = config.default_password as string;
+    userData.password = config.default_password as string;
   } else {
-    user.password = password;
+    userData.password = password;
   }
   //set users  role as student
 
-  user.role = "student";
+  userData.role = "student";
   //set manually generated id
-  user.id = "2030100001";
+  userData.id = "2030100001";
 
-  const result = await User.create(user);
+  const result = await User.create(userData);
   //create a student
   if (Object.keys(result).length) {
-    // set id,_id as user
+    // set id(embed),_id(referancing) as user
     student.id = result.id;
     student.user = result._id;
   }

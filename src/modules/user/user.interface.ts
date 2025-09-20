@@ -8,8 +8,3 @@ export type TUser = {
   updatedAt: Date;
   isDeleted: boolean;
 };
-export type newUser = {
-  role: string;
-  password: string;
-  id: string;
-};
